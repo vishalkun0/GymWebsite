@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rangers Fitness</title>
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/management.css">
+  <style>
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #333;
+      color: white;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-buttons button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #45a049;
+    }
+
+    main {
+      padding: 20px;
+      display: flex;
+      justify-content: center; /* Center the main content */
+    }
+
+    .form-container {
+      max-width: 700px; /* Set a maximum width for forms */
+      width: 100%; /* Full width for smaller screens */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      background-color: #fff;
+      margin: auto; /* Center the form */
+    }
+
+    #managementPage, #homePage, #paymentPage {
+      display: none;
+    }
+
+    #homePage {
+      display: block;
+    }
+
+    form {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column; /* Stack label and input vertically */
+      gap: 5px; /* Space between label and input */
+    }
+
+    table {
+      width: 100%;
+      max-width: 100%; /* Prevent table from exceeding the container */
+      margin-top: 20px;
+      border-collapse: collapse;
+      background-color: #121111; /* Contrast background for the table */
+    }
+
+    table th, table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+      overflow: hidden; /* Prevent text overflow */
+      white-space: nowrap; /* Prevent text wrapping */
+      text-overflow: ellipsis; /* Show ellipsis for overflowing text */
+    }
+
+    .button-container {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .remove-btn {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      background-color: darkred;
+    }
+
+    .package-selection {
+      margin-top: 20px;
+    }
+
+    /* Button styles */
+    .pay-btn, .cancel-btn, .logout-btn {
+      width: 100%; /* Make buttons full width */
+      padding: 10px; /* Set uniform padding */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .pay-btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .pay-btn:hover {
+      background-color: #45a049;
+    }
+
+    .cancel-btn {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .cancel-btn:hover {
+      background-color: darkred;
+    }
+
+    .logout-btn {
+      background-color: #078ebb;
+      color: white;
+    }
+
+    .logout-btn:hover {
+      background-color: #007B9E;
+    }
+
+    /* Popup Styles */
+    .popup {
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .popup-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 90%;  /* Responsive width */
+      max-width: 400px;  /* Maximum width for large screens */
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .popup-content input {
+      margin: 10px 0;
+      width: calc(100% - 20px);  /* Full width minus padding */
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;  /* Ensure padding is included in width */
+    }
+
+    .close-btn {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      margin-top: 10px;  /* Space between input fields and button */
+    }
+
+    .close-btn:hover {
+      background-color: darkred;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Rangers Fitness</h1>
+    <div class="nav-buttons">
+      <button id="homeBtn">Home</button>
+      <button id="registrationBtn">Management</button>
+      <button id="paymentBtn">Payment</button> <!-- New Payment Button -->
+      <button id="connectBtn">Connect</button> <!-- New Connect Button -->
+      <button class="logout-btn" onclick="logout()">Logout</button> <!-- Logout Button -->
+    </div>
+  </header>
+
+  <main>
+    <!-- Home Page Section -->
+    <div id="homePage">
+      <h1>Welcome to Rangers Fitness!</h1>
+      <section class="about">
+        <h2>About Us</h2>
+        <p>At Rangers Fitness, we are dedicated to helping you achieve your fitness goals. Our state-of-the-art facilities and expert trainers are here to guide you every step of the way.</p>
+      </section>
+      <section class="mission-vision">
+        <h2>Our Mission</h2>
+        <p>To inspire and empower individuals to lead healthier and happier lives through fitness.</p>
+        <h2>Our Vision</h2>
+        <p>To be the leading fitness community, where everyone feels welcome, supported, and motivated to reach their full potential.</p>
+      </section>
+      <section class="quotes">
+        <h2>Motivational Quotes</h2>
+        <blockquote>"The only bad workout is the one that didn’t happen."</blockquote>
+        <blockquote>"Push yourself, because no one else is going to do it for you."</blockquote>
+        <blockquote>"Success isn’t always about greatness. It’s about consistency. Consistent hard work gains success. Greatness will come."</blockquote>
+      </section>
+    </div>
+
+    <!-- Management Page Section -->
+    <div id="managementPage" class="form-container"> <!-- Centered Form Container -->
+      <h1>Rangers Fitness Membership Management</h1>
+
+      <div class="button-container">
+        <button onclick="showRegistrationForm()">Register Member</button>
+      </div>
+
+      <form id="memberForm" style="display: none;" onsubmit="addMember(event)">
+        <div class="form-group">
+          <input type="text" id="memberName" placeholder="Name" required>
+        </div>
+        <div class="form-group">
+          <input type="email" id="memberEmail" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" id="memberPhone" placeholder="Phone" required>
+        </div>
+
+        <div class="form-group">
+          <select id="gender" required>
+            <option value="" disabled selected>Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <input type="number" id="age" placeholder="Age" required min="1">
+        </div>
+
+        <div class="package-selection form-group">
+          <label for="membershipPackage">Select Package:</label>
+          <select id="membershipPackage" onchange="updatePrice()" required>
+            <option value="monthly">Monthly</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="half-yearly">Half Yearly</option>
+            <option value="yearly">Yearly</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price:</label>
+          <input type="text" id="price" readonly>
+        </div>
+
+        <div class="button-container">
+          <button type="submit">Add Member</button>
+          <button type="button" onclick="memberForm.style.display='none';">Cancel</button>
+        </div>
+      </form>
+
+      <table>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Gender</th>
+              <th>Age</th>
+              <th>Package</th>
+              <th>Status</th> <!-- Correct Status Column -->
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="membersList">
+            <!-- Members will be added here -->
+          </tbody>
+        </table>
+    </div>
+
+    <!-- Payment Page Section -->
+    <div id="paymentPage" class="form-container"> <!-- Centered Form Container -->
+      <h1>Add New Payment</h1>
+
+      <form id="paymentForm" onsubmit="processPayment(event)">
+        <div class="form-group">
+          <input type="text" id="paymentMemberId" placeholder="Enter Member ID" required>
+        </div>
+        <div class="form-group">
+          <input type="text" id="paymentName" placeholder="Enter Name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="paymentPackage">Package:</label>
+          <select id="paymentPackage" onchange="updatePaymentPrice()" required>
+            <option value="" disabled selected>Select Package</option>
+            <option value="monthly">Monthly</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="half-yearly">Half Yearly</option>
+            <option value="yearly">Yearly</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="paymentPrice">Price:</label>
+          <input type="text" id="paymentPrice" readonly>
+        </div>
+        <div class="form-group">
+          <input type="date" id="paymentDate" required>
+        </div>
+        <div class="button-container">
+          <button type="submit" class="pay-btn">Pay</button>
+          <button type="button" class="cancel-btn" onclick="cancelPayment()">Cancel</button>
+        </div>
+      </form>
+      <div id="paymentMessage" style="display:none; margin-top: 20px; color: green;"></div>
+    </div>
+
+    <!-- Contact Popup -->
+    <div id="contactPopup" class="popup">
+      <div class="popup-content">
+        <h2>Contact Us</h2>
+        <input type="text" id="username" placeholder="Your Name" required>
+        <input type="tel" id="contactNumber" placeholder="Contact Number" required>
+        <button class="close-btn" onclick="submitContact()">Submit</button>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let memberID = 1; // For tracking member IDs
+    const memberForm = document.getElementById('memberForm');
+    const membersList = document.getElementById('membersList');
+    const connectBtn = document.getElementById('connectBtn');
+    const contactPopup = document.getElementById('contactPopup');
+
+    // Show home page
+    document.getElementById('homeBtn').addEventListener('click', () => {
+      showPage('homePage');
+    });
+
+    // Show management page
+    document.getElementById('registrationBtn').addEventListener('click', () => {
+      showPage('managementPage');
+    });
+
+    // Show payment page
+    document.getElementById('paymentBtn').addEventListener('click', () => {
+      showPage('paymentPage');
+    });
+
+    // Function to show the selected page
+    function showPage(page) {
+      document.getElementById('homePage').style.display = 'none';
+      document.getElementById('managementPage').style.display = 'none';
+      document.getElementById('paymentPage').style.display = 'none';
+      document.getElementById(page).style.display = 'block';
+    }
+
+    // Function to show registration form
+    function showRegistrationForm() {
+      memberForm.style.display = 'flex'; // Show form as flexbox
+    }
+
+    // Function to update price based on selected package
+    function updatePrice() {
+      const package = document.getElementById('membershipPackage').value;
+      let price = '';
+
+      switch (package) {
+        case 'monthly':
+          price = '1000';
+          break;
+        case 'quarterly':
+          price = '3500';
+          break;
+        case 'half-yearly':
+          price = '5000';
+          break;
+        case 'yearly':
+          price = '8000';
+          break;
+      }
+
+      document.getElementById('price').value = price;
+    }
+
+    // Add a new member to the list
+    function addMember(event) {
+  event.preventDefault(); // Prevent page refresh
+
+  const name = document.getElementById('memberName').value;
+  const phone = document.getElementById('memberPhone').value;
+  const gender = document.getElementById('gender').value;
+  const age = document.getElementById('age').value;
+  const membershipPackage = document.getElementById('membershipPackage').value;
+
+  const newRow = document.createElement('tr');
+  newRow.setAttribute('data-member-id', memberID); // Store the member ID
+
+  newRow.innerHTML = `
+    <td>${memberID++}</td>
+    <td>${name}</td>
+    <td>${phone}</td>
+    <td>${gender.charAt(0).toUpperCase() + gender.slice(1)}</td>
+    <td>${age}</td>
+    <td>${membershipPackage.charAt(0).toUpperCase() + membershipPackage.slice(1)}</td>
+    <td class="status">Inactive</td> <!-- Default Status -->
+    <td><button class="remove-btn" onclick="removeMember(this)">Remove</button></td>
+  `;
+
+  membersList.appendChild(newRow); // Add the new row to the table
+  memberForm.reset(); // Clear the form
+  memberForm.style.display = 'none'; // Hide the form
+}
+
+
+    // Remove a member from the list
+    function removeMember(button) {
+      const row = button.parentElement.parentElement;
+      membersList.removeChild(row); // Remove the selected row
+    }
+
+    // Payment functions
+    function updatePaymentPrice() {
+      const package = document.getElementById('paymentPackage').value;
+      let price = '';
+
+      switch (package) {
+        case 'monthly':
+          price = '1000';
+          break;
+        case 'quarterly':
+          price = '3500';
+          break;
+        case 'half-yearly':
+          price = '5000';
+          break;
+        case 'yearly':
+          price = '8000';
+          break;
+      }
+
+      document.getElementById('paymentPrice').value = price;
+      document.getElementById('paymentName').value = ''; // Reset the name field when package is changed
+    }
+
+    function processPayment(event) {
+  event.preventDefault(); // Prevent page refresh
+
+  const memberId = document.getElementById('paymentMemberId').value;
+
+  // Find the member row using the Member ID
+  const memberRow = document.querySelector(`[data-member-id='${memberId}']`);
+
+  if (memberRow) {
+    const statusCell = memberRow.querySelector('.status');
+    statusCell.textContent = 'Active'; // Set status to Active after payment
+  } else {
+    alert('Member not found. Please enter a valid Member ID.');
+  }
+
+  // Display payment success message
+  document.getElementById('paymentMessage').innerText = "Payment successful.";
+  document.getElementById('paymentMessage').style.display = "block";
+
+  // Reset the payment form
+  document.getElementById('paymentForm').reset();
+  document.getElementById('paymentPrice').value = ''; // Clear the price field
+}
+
+
+    function cancelPayment() {
+      document.getElementById('paymentForm').reset();
+      document.getElementById('paymentPrice').value = ''; // Clear the price field
+      document.getElementById('paymentMessage').style.display = "none"; // Hide the payment message
+    }
+
+    // Show the contact popup
+    connectBtn.addEventListener('click', () => {
+      contactPopup.style.display = 'flex';
+    });
+
+    // Submit the contact form
+    function submitContact() {
+      const username = document.getElementById('username').value;
+      const contactNumber = document.getElementById('contactNumber').value;
+
+      alert(`Thank you for connecting, ${username}!`);
+
+      closePopup(); // Close the popup after submission
+    }
+
+    // Close the popup
+    function closePopup() {
+      contactPopup.style.display = 'none';
+    }
+
+    // Logout function
+    function logout() {
+      // Redirect to login page
+      window.location.href = 'login.html'; // Change this if your login page has a different name or path
+    }
+  </script>
+</body>
+</html>

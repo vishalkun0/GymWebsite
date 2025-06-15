@@ -1,0 +1,13 @@
+[
+    {
+      "name": "Alice Johnson",
+      "email": "alice@example.com",
+      "subscription": "Monthly"
+    },
+    {
+      "name": "Bob Smith",
+      "email": "bob@example.com",
+      "subscription": "Yearly"
+    }
+  ]
+  
