@@ -15,7 +15,14 @@ Contact Us Popup – Quick form for member inquiries or feedback.
 Logout Functionality – Ensures session security after use.
 
 # Tech Stack
+Frontend: HTML, CSS, JavaScript
+
+Backend: Node.js, Java
+
+Database: MySql
 
 # How to Initialize
-Firstly in VS code add the extension Live server or type Node start server at the terminal(Make sure you have installed all the node packages).This will create a host where you cn work on the website.
+In VS code add the extension Live server or type Node start server at the terminal(Make sure you have installed all the node packages).This will create a host where you cn work on the website.
+
+open Index.html in browser or host with local server.
 
